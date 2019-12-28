@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Pixelart Idea Generator</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        html{font-family: Consolas, monaco, monospace;background-color:#1e1e1e;color:#4de1f5;text-align:center;}
+        input,select{background-color:#181818;border:1px solid #101010;border-top-color:#000000;border-bottom-color:#333333;border-radius:2px;color:#4de1f5;}
+        button{background-color:#353535;border-color:#555555;color:#4de1f5;margin:5px;border-style:outset;cursor:pointer;}
+        button:hover{background-color:#555555;}
+        button:active{border-style:inset;}
+        a{color:#ffb730;}a:visited{color:#ffb730;}
+        table,th,td{border:2px solid #444444;border-collapse:collapse;margin:auto;border-radius: 2px;}
+        span{font-size: 18px;}
+        th{padding:2px;}
+        td{padding:2px;text-align:left;vertical-align:top;}
+        h3{margin:2px;}
+        ::-webkit-scrollbar {width: 10px;}
+        ::-webkit-scrollbar-track {background: #1e1e1e;}
+        ::-webkit-scrollbar-thumb {background: #444444;}
+        ::-webkit-scrollbar-thumb:hover {background: #666666;}
+        /* check box css modified from https://www.w3schools.com/howto/howto_css_custom_checkbox.asp*/
+        .container{display:block;position:relative;padding-left:25px;margin-bottom:2px;cursor:pointer;font-size:18px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+        .container input{position:absolute;opacity:0;cursor:pointer;height:0;width:0}
+        .checkmark{position:absolute;top:0;left:0;height:18px;width:18px;border:2px solid #444;border-radius:4px;background-color:#1e1e1e}
+        .container:hover input ~ .checkmark{background-color:#2e2e2e}
+        .container input:checked ~ .checkmark{background-color:#4de1f5}
+
+
+    </style>
+</head>
+
+<body style="margin: 0 0 0 0;">
+    <div style="height: 100px;"></div hei>
+    <h3 id="idea">\/ click to generate idea \/</h3>
+    <button onclick="generate()" style="padding: 5px;">generate</button>
+    <table>
+        <tr>
+            <td>
+                <h3>resolutions</h3>
+                <label class="container">8x8<input type="checkbox" id="res0" data-outText="8x8"></input><span class="checkmark"></span></label>
+                <label class="container">10x10<input type="checkbox" id="res1" data-outText="10x10"></input><span class="checkmark"></span></label>
+                <label class="container">16x16<input type="checkbox" id="res2" data-outText="16x16"></input><span class="checkmark"></span></label>
+                <label class="container">20x20<input type="checkbox" id="res3" data-outText="20x20"></input><span class="checkmark"></span></label>
+                <label class="container">32x32<input type="checkbox" id="res4" data-outText="32x32"></input><span class="checkmark"></span></label>
+                <label class="container">64x64<input type="checkbox" id="res5" data-outText="64x64"></input><span class="checkmark"></span></label>
+            </td>
+            <td>
+                <h3>colors</h3>
+                <label class="container">2 colors<input type="checkbox" id="color0" data-outText="2"></input><span class="checkmark"></span></label>
+                <label class="container">3 colors<input type="checkbox" id="color1" data-outText="3"></input><span class="checkmark"></span></label>
+                <label class="container">4 colors<input type="checkbox" id="color2" data-outText="4"></input><span class="checkmark"></span></label>
+                <label class="container">6 colors<input type="checkbox" id="color3" data-outText="6"></input><span class="checkmark"></span></label>
+                <label class="container">8 colors<input type="checkbox" id="color4" data-outText="8"></input><span class="checkmark"></span></label>
+                <label class="container">10 colors<input type="checkbox" id="color5" data-outText="10"></input><span class="checkmark"></span></label>
+                <label class="container">15 colors<input type="checkbox" id="color6" data-outText="15"></input><span class="checkmark"></span></label>
+                <label class="container">unlimited<input type="checkbox" id="color7" data-outText="any amount of"></input><span class="checkmark"></span></label>
+            </td>
+            <td>
+                <h3>time</h3>
+                <label class="container">30s<input type="checkbox" id="time0" data-outText="30 seconds"></input><span class="checkmark"></span></label>
+                <label class="container">1m<input type="checkbox" id="time1" data-outText="1 minutes"></input><span class="checkmark"></span></label>
+                <label class="container">2m<input type="checkbox" id="time2" data-outText="2 minutes"></input><span class="checkmark"></span></label>
+                <label class="container">3m<input type="checkbox" id="time3" data-outText="3 minutes"></input><span class="checkmark"></span></label>
+                <label class="container">5m<input type="checkbox" id="time4" data-outText="5 minutes"></input><span class="checkmark"></span></label>
+                <label class="container">10m<input type="checkbox" id="time5" data-outText="10 minutes"></input><span class="checkmark"></span></label>
+                <label class="container">15m<input type="checkbox" id="time6" data-outText="15 minutes"></input><span class="checkmark"></span></label>
+                <label class="container">10m<input type="checkbox" id="time7" data-outText="30 minutes"></input><span class="checkmark"></span></label>
+                <label class="container">∞<input type="checkbox" id="time8" data-outText="any amount of time"></input><span class="checkmark"></span></label>
+            </td>
+            <td>
+                <h3>prefix</h3>
+                <label class="container">use prefix<input type="checkbox" id="pre" data-outText=""></input><span class="checkmark"></span></label>
+            </td>
+            <td>
+                <h3>categories</h3>
+                <label class="container">armour<input type="checkbox" id="cat0" data-outText="armour"></input><span class="checkmark"></span></label>
+                <label class="container">weapons<input type="checkbox" id="cat1" data-outText="weapons"></input><span class="checkmark"></span></label>
+                <label class="container">items<input type="checkbox" id="cat2" data-outText="items"></input><span class="checkmark"></span></label>
+                <label class="container">enemies<input type="checkbox" id="cat3" data-outText="enemies"></input><span class="checkmark"></span></label>
+                <label class="container">creatures<input type="checkbox" id="cat4" data-outText="creatures"></input><span class="checkmark"></span></label>
+                <label class="container">people<input type="checkbox" id="cat5" data-outText="people"></input><span class="checkmark"></span></label>
+                <label class="container">transportation<input type="checkbox" id="cat6" data-outText="transportation"></input><span class="checkmark"></span></label>
+                <label class="container">environment<input type="checkbox" id="cat7" data-outText="environment"></input><span class="checkmark"></span></label>
+                <label class="container">buildings<input type="checkbox" id="cat8" data-outText="buildings"></input><span class="checkmark"></span></label>
+                <!-- <label class="container">misc.<input type="checkbox" id="cat9" data-outText="miscellaneous"></input><span class="checkmark"></span></label> -->
+            </td>
+        </tr>
+    </table>
+    <span>presets:</span><button onclick="preset('beginner')">beginner</button><button onclick="preset('quick')">quick</button>
+    <script>
+        var prefixes = "old,futuristic,flaming,ice,natural looking,orange,purple,watery,earthen,metallic,evil,angelic,magic,royal,dark,glowing,crystalline,rainbow,";
+        var categories = {
+            armour: "helmet,chest plate,leg armour,footwear,gauntlet",
+            weapons: "spear,pitchfork,short sword,long sword,dagger,mace,bow,cross bow,pole arm,flail,rifle,pistol,turreted gun,magic staff,axe,shield,scythe,throwing weapon",
+            items: "small flask,potion,coin,bag,gem,crystal,herb,book,key,necklace,ring,meat,fruit,food,belt,hat,bones,wings,arrow,ammunition",
+            enemies: "slime,beetle,skeleton,zombie,spider,harpy,orc,cyclops,goblin,pirate,bandit,wolf,reptilian,demon,ghost,snake,scorpion,dragon,ghoul,witch,wizard,minotaur,elemental,angle,necromancer,dwarf,turtle,centaur,mermaid,nymph,unicorn,golem,soldier,mech,eye,spirit",
+            creatures: "bird,bug,turtle,lizard,snake,frog,fish,rodent,eagle,duck,fox,bear,bison,cow,sheep,rhino,monkey,horse,bat,owl,shark,whale,octopus,crab,rabbit,goat,butterfly",
+            people: "peasant,noble person,blacksmith,shopkeeper,healer,wizard,witch,foot soldier,town folk,farmer,angel,demon,sailor,fisher,hunter,mercenary",
+            transportation: "car,train,plane,boat,submarine,truck,cart,armoured vehicle,bike,helicopter",
+            environment: "grass,rock,tree,bush,flower,pond",
+            buildings: "house,shack,tower,wall,castle,shop,factory,hotel,prison,restaurant",
+            miscellaneous: "chest"
+        };
+        var presets = {
+            beginner:"res0,res1,res2,color1,color2,color3,time2,time3,time4,cat1,cat2,cat7",
+            quick:"res0,res1,res2,res3,color0,color1,color2,color3,color4,time0,time1,time2,time3,cat0,cat1,cat2,cat3,cat4,cat7"
+        };
+
+        function preset(key) {
+            turnAll(false);
+            var IDs = parseCSV(presets[key]);
+            for(var i=0;i<IDs.length;i++) {
+                document.getElementById(IDs[i]).checked = true;
+            }
+        }
+
+        function generate() {
+            var resolution = getRandomFromSection("res") || "16x16";
+            var colors = getRandomFromSection("color") || "6";
+            var time = getRandomFromSection("time") || "3 minutes";
+            var usePrefix = document.getElementById("pre").checked;
+            var prefix = "";
+            if (usePrefix) {
+                prefix = getRandomFromCSV(prefixes);
+            }
+            var thing = getRandomFromCSV(categories[(getRandomFromSection("cat") || "items")]);
+            document.getElementById("idea").innerHTML = `${prefix} ${thing} with ${colors} colors at ${resolution} in ${time}.`;
+        }
+
+        function getRandomFromSection(IDPrefix) {
+            var arrayToChoseFrom = [];
+            var i = 0;
+            var elem = document.getElementById(`${IDPrefix}${i}`);
+            while (elem !== null) {
+                if (elem.checked) {
+                    arrayToChoseFrom.push(elem.getAttribute("data-outText"));
+                }
+                i++;
+                elem = document.getElementById(`${IDPrefix}${i}`);
+            }
+            return arrayToChoseFrom[rand(0, arrayToChoseFrom.length - 1)];
+        }
+
+        function getRandomFromCSV(str) {
+            var arrayToChoseFrom = parseCSV(str);
+            return arrayToChoseFrom[rand(0, arrayToChoseFrom.length - 1)];
+        }
+
+        function parseCSV(str) {
+            var returnArray = [];
+            var startPos = 0;
+            var endPos = 0;
+            for (var i = 0; i < str.length; i++) {
+                if (str[i] === ",") {
+                    endPos = i;
+                    returnArray.push(str.substring(startPos, endPos));
+                    startPos = endPos + 1;
+                }
+            }
+            returnArray.push(str.substring(startPos, str.length));
+            return returnArray;
+        }
+
+        function rand(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function turnAll(state) {
+            function turnListOfStuff(IDPrefix) {
+                var j = 0;
+                var elem = document.getElementById(`${IDPrefix}${j}`);
+                while (elem !== null) {
+                    elem.checked = state;
+                    j++;
+                    elem = document.getElementById(`${IDPrefix}${j}`);
+                }
+            }
+            var IDs = ["res", "color", "time", "cat"];
+            for (var i = 0; i < IDs.length; i++) {
+                turnListOfStuff(IDs[i]);
+            }
+            document.getElementById("pre").checked = state;
+        }
+        turnAll(true);
+    </script>
+</body>
+
+</html>

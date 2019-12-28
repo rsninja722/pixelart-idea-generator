@@ -1,1 +1,2 @@
-# pixelart-idea-generator
+# pixelart idea generator
+Quick tool to be creative for me if I want to practice pixel art. Randomly gives something to draw, a resolution, time limit, and limit to how many colors to use. If I remember I'll integrating this into my editor
